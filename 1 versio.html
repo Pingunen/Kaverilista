@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaverisovellus - Versio 1</title>
+</head>
+<body>
+  <h1>Kaverisovellus - Versio 1</h1>
+
+  <form id="friendForm">
+    <label for="friendName">Syötä kymmenen kaverin nimi:</label><br>
+    <input type="text" id="friendName" required><br><br>
+    <button type="submit">Lisää kaveri</button>
+  </form>
+
+  <div id="friendsList"></div>
+
+  <script>
+    const friendForm = document.getElementById('friendForm');
+    const friendsList = document.getElementById('friendsList');
+    let friends = [];
+
+    friendForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const friendNameInput = document.getElementById('friendName');
+      const friendName = friendNameInput.value.trim();
+
+      if (friends.length < 10 && friendName !== '') {
+        friends.push(friendName);
+        friendNameInput.value = '';
+
+        displayFriends();
+      } else {
+        if (friends.length >= 10) {
+          alert('Olet syöttänyt jo 10 kaverin nimeä!');
+        } else {
+          alert('Syötä kaverin nimi.');
+        }
+      }
+    });
+
+    function displayFriends() {
+      friendsList.innerHTML = '';
+      friends.forEach(function(friend, index) {
+        const p = document.createElement('p');
+        p.textContent = `Kaveri ${index + 1}: ${friend}`;
+        friendsList.appendChild(p);
+      });
+    }
+  </script>
+</body>
+</html>
